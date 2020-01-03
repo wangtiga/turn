@@ -31,16 +31,20 @@ func main() {
 
 	users := os.Getenv("USERS")
 	if users == "" {
-		log.Panic("USERS is a required environment variable")
+		users = "com=webrtcdemo"
+		//log.Panic("USERS is a required environment variable")
 	}
 	for _, kv := range regexp.MustCompile(`(\w+)=(\w+)`).FindAllStringSubmatch(users, -1) {
 		usersMap[kv[1]] = kv[2]
 	}
+	log.Printf("usersMap=%+v", usersMap)
 
 	realm := os.Getenv("REALM")
 	if realm == "" {
-		log.Panic("REALM is a required environment variable")
+		realm = "test.tiga.wang"
+		//log.Panic("REALM is a required environment variable")
 	}
+	log.Printf("Realm=%+v", realm)
 
 	udpPortStr := os.Getenv("UDP_PORT")
 	if udpPortStr == "" {
@@ -60,12 +64,14 @@ func main() {
 		}
 	}
 
+	logger := logging.NewDefaultLoggerFactory()
+	logger.DefaultLogLevel.Set(logging.LogLevelTrace)
 	s := turn.NewServer(&turn.ServerConfig{
 		Realm:              realm,
 		AuthHandler:        createAuthHandler(usersMap),
 		ChannelBindTimeout: channelBindTimeout,
 		ListeningPort:      udpPort,
-		LoggerFactory:      logging.NewDefaultLoggerFactory(),
+		LoggerFactory:      logger,
 		Software:           os.Getenv("SOFTWARE"),
 	})
 
