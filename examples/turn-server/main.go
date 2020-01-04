@@ -41,7 +41,7 @@ func main() {
 
 	realm := os.Getenv("REALM")
 	if realm == "" {
-		realm = "test.tiga.wang"
+		realm = "turn.tiga.wang"
 		//log.Panic("REALM is a required environment variable")
 	}
 	log.Printf("Realm=%+v", realm)

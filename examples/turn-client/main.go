@@ -13,10 +13,10 @@ import (
 )
 
 func main() {
-	host := flag.String("host", "test.tiga.wang", "TURN Server name.")
+	host := flag.String("host", "turn.tiga.wang", "TURN Server name.")
 	port := flag.Int("port", 3478, "Listening port.")
 	user := flag.String("user", "com=webrtcdemo", "A pair of username and password (e.g. \"user=pass\")")
-	realm := flag.String("realm", "test.tiga.wang", "Realm (defaults to \"pion.ly\")")
+	realm := flag.String("realm", "turn.tiga.wang", "Realm (defaults to \"turn.tiga.wang\")")
 	ping := flag.Bool("ping", false, "Run ping test")
 	flag.Parse()
 
